@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لعبة كِفّة الحقوقية</title>
+  <!-- خط Cairo -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #03131a;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header {
+      background-color: #042141;
+      padding: 15px;
+    }
+    header img {
+      max-height: 70px;
+    }
+    h1 {
+      margin: 20px 0;
+      font-size: 28px;
+    }
+    .game-container {
+      background: #2d4d76;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      margin: 30px auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    #scenario {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    button {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f9f4ed;
+      color: #03131a;
+      border: none;
+      padding: 12px 25px;
+      margin: 10px;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #ffffff;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+   <div class="logo-container">
+  <img src="c:\Users\salma\Downloads\logo.png.png" class="logo">
+</div>
+
+  </header>
+  <h1>نظامي أو غير نظامي؟</h1>
+  <div class="game-container">
+    <p id="scenario">جاهزين؟ اضغطوا على زر للبدء 👇</p>
+    <button onclick="checkAnswer(true)">المتجر نظامي</button>
+    <button onclick="checkAnswer(false)">المتجر غير نظامي</button>
+  </div>
+
+  <script>
+    const scenarios = [
+      // السجل التجاري
+      { text: "متجر يزاول نشاط تجاري بدون تسجيل في السجل التجاري", correct: false },
+      { text: "السجل التجاري يحتوي على اسم التاجر ورقم السجل التجاري ونوع النشاط والعنوان", correct: true },
+      { text: "التاجر ما يحدث بيانات سجله التجاري بعد ما غير نشاطه", correct: false },
+      { text: "تاجر يسوي التأكيد السنوي لبيانات السجل", correct: true },
+
+      // الفاتورة
+      { text: "فاتورة فيها اسم البائع والرقم الضريبي ووصف السلعة والسعر قبل وبعد الضريبة", correct: true },
+      { text: "فاتورة مكتوبة بخط اليد بدون نظام إلكتروني معتمد", correct: false },
+      { text: "المنشأة تحفظ فواتيرها إلكترونيًا لمدة 6 سنوات", correct: true },
+
+      // حقوق المستهلك
+      { text: "المستهلك رجّع سلعة معيبة والمتجر رفض الاستبدال", correct: false },
+      { text: "المتجر يعلن بوضوح سياسة الاستبدال والإرجاع", correct: true }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function showScenario() {
+      if (current < scenarios.length) {
+        document.getElementById("scenario").innerText = scenarios[current].text;
+      } else {
+        showResult();
+      }
+    }
+
+    function checkAnswer(answer) {
+      if (current < scenarios.length) {
+        if (answer === scenarios[current].correct) {
+          score++;
+          alert("إجابة صحيحة ✅");
+        } else {
+          alert("إجابة خاطئة ❌");
+        }
+        current++;
+        showScenario();
+      }
+    }
+
+    function showResult() {
+      let message = "";
+      if (score === scenarios.length) {
+        message = "🎉 انت قانوني أسطوري! كل إجاباتك صحيحة 👏";
+      } else if (score >= scenarios.length * 0.7) {
+        message = "👍 عندك وعي قانوني ممتاز، استمر!";
+      } else {
+        message = "🙂 تحتاج تشتغل على قانونيتك شوي، حاول تتعلم أكثر.";
+      }
+      document.getElementById("scenario").innerText = message + `\nنتيجتك: ${score} من ${scenarios.length}`;
+      document.querySelectorAll("button").forEach(btn => btn.style.display = "none");
+    }
+
+    showScenario();
+  </script>
+</body>
+</html>
+
+
+
+
